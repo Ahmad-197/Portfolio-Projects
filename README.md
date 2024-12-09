@@ -253,7 +253,7 @@ The performance of LSTM with experimental data is as follows.
 It can be observed that in all three mappers, the reconstruction of simulated data was much better than the experimental data. This is due to the inherent noise and fluctuations in the experimental data which makes it difficult to make true predictions. The analytical performance of the mappers is discussed next. 
 
 
-## **6. Results**[^2]
+## **6. Results**
 
 The Fig. 18 shows the box plots which represent the permittivity deviation in mesh elements for three of the mappers when simulated data was used. The simple mapper performed the worst with mean and standard deviations of 0.706 and 2.492 respectively. The performance of the sequential and LSTM mappers is comparable. LSTM performs better in terms of giving precise predictions as its permittivity error standard deviation is 1.797 and for sequential mapper this standard deviation is 2.433. However, the mean deviation for LSTM is -0.775 and 0.42 for sequential mapper. The predictions of LSTM are generally lower than the true value while they are higher for the sequential mapper. Overall, the sequential mapper gives relatively more accurate predictions on occasions but there is high variability in its predictions. The performance of LSTM is comparatively more consistent.
 
@@ -305,9 +305,6 @@ In this case as well the simple mapper's performance is the worst among the thre
 After comparing the performance of the three mappers with three different types of datasets, the LSTM mapper has stood out to be the best among the three followed by the sequential mapper. LSTM mapper has displayed consistent and relatively accurate predictions.
 
 
-
-
-[^2]: These results could also be viewed in each of the given mapper training notebook
 
 
 ## **7. Citations**
