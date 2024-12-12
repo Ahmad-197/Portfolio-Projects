@@ -59,7 +59,8 @@ We then introduce an anomaly to each of the meshes. Depending on the size of the
 
 The permittivity associated with each of these mesh elements is stored in a single array. Hence, by simulating an anomaly we get a known permittivity distribution which is then used to find out voltages. 
 
-A system with thirty-two electrodes is simulated with an opposite injection pattern with a skip of sixteen electrodes. The injecting electrodes are the electrodes to which a sinusoidal electric current is injected and afterwards, the voltages at each of the remaining adjacent pairs are recorded. This pattern is repeated until all the possible injecting electrode patterns are simulated. In simulating EIT data we know the permittivity distribution and we use it to obtain the voltages at electrodes. Using permittivity to obtain these voltages is also known as the EIT forward problem. 
+A system with thirty-two electrodes is simulated with an opposite injection pattern with a skip of sixteen electrodes. The injecting electrodes are the electrodes to which a sinusoidal electric current is injected and afterwards, the voltages at each of the remaining adjacent pairs are recorded. This pattern is repeated until all the possible injecting electrode patterns are simulated. In simulating EIT data we know the permittivity distribution and we use it to obtain the voltages at electrodes. Using permittivity to obtain these voltages is also known as the EIT forward problem. For detailed information about how EIT data was simulated and the associated results refer to [EIT Data Simulation](Notebooks/EIT_Data_Simulation.ipynb) notebook.
+
 
 ## **3. Experimental Setup**
 
@@ -103,7 +104,7 @@ So, we get both permittivity and voltage information, which is then used for tra
 
 ### Augmented Dataset
 
-In addition to the simulated and experimental datasets, a third dataset was also used to check the output of mappers. This is also called as 2nd simulation dataset in this report. Here, the anomaly was modelled using the same method as in the experimental setup. However, only a small dataset of saline level changes was collected. Later on, data augmentation was performed to get a larger dataset. Before data augmentation a clean subset of 8 time periods of the signal was selected from the collected data to which a median filter was applied and then we obtained the Fourier series representation as mentioned above. After scaling and inverting the filtered data, they were divided into 8 different chunks. These chunks were then shuffled randomly and added to the original dataset until the required number of samples were obtained.
+In addition to the simulated and experimental datasets, a third dataset[^1] was also used to check the output of mappers. This is also called as 2nd simulation dataset in this report. Here, the anomaly was modelled using the same method as in the experimental setup. However, only a small dataset of saline level changes was collected. Later on, data augmentation was performed to get a larger dataset. Before data augmentation a clean subset of 8 time periods of the signal was selected from the collected data to which a median filter was applied and then we obtained the Fourier series representation as mentioned above. After scaling and inverting the filtered data, they were divided into 8 different chunks. These chunks were then shuffled randomly and added to the original dataset until the required number of samples were obtained.
 
 The plot below shows the change in the radius of the anomaly.
 
@@ -118,6 +119,7 @@ The plot below shows the change in the radius of the anomaly.
 
 Noise is also added to the mesh elements so that the signal-to-noise ratio (SNR) is 30. Note that voltages were obtained in the same way as in the simulation case i.e. by solving the forward problem. 
 
+[^1]: This dataset was provided by the supervisor.
 
 ## **4. Variational Autoencoder**
 
@@ -152,6 +154,7 @@ Additionally, the figure below shows the box plot which represents the deviation
 
 The trained VAE would help us in training our neural networks where we would use the latent representation to train the network and then the predicted latent representations would be passed through the decoder to reconstruct permittivity distribution. In short by using VAE we "generate a low dimensional manifold of approximate solutions, which allows conversion of the ill-posed EIT problem to a well-posed one" <a href="#ref7">[8]</a>. This is discussed in the next section.
 
+For further information about the architecture and training of VAE refer to [VAE Training](Notebooks/VAE_Training.ipynb) notebook.
 
 
 ## **5. Mapper Models**
@@ -170,7 +173,7 @@ A simple convolutional neural network is used having two 2D convolutional, one f
 </p>
 
 
-The neural network learns to map the boundary voltages at a single time instant to the latent space created by the encoder of the VAE using permittivity distribution.
+The neural network learns to map the boundary voltages at a single time instant to the latent space created by the encoder of the VAE using permittivity distribution. To have a deeper look at the mapper architecture or the training process please refer to either [Simple Mapper Simulation](Notebooks/Simple_Mapper_Simulation.ipynb) or [Simple Mapper Exp](Notebooks/Simple_Mapper_Exp.ipynb) notebooks.
 
 The following figure represents the reconstruction of permittivity distribution using simulated data.
 
@@ -206,7 +209,7 @@ The sequential mapper is similar to the simple mapper, however, instead of passi
 
 
 
-We investigate in the [results](#6-results) section how does this change affect the performance of the mapper. The mapper consists of two 2D convolutional, two flatten and five dense layers.
+We investigate in the [results](#6-results) section how does this change affect the performance of the mapper. The mapper consists of two 2D convolutional, two flatten and five dense layers. To have a closer look at the mapper architecture or the training process please refer to either [Seq Mapper Simulation](Notebooks/Seq_Mapper_Simulation.ipynb) or [Seq Mapper Exp](Notebooks/Seq_Mapper_Exp.ipynb) notebooks.
 
 The Fig. 14 shows the performance of this mapper when simulated data is used.
 
@@ -229,7 +232,8 @@ The performance of the mapper with experimental data is displayed below.
 
 
 ### 5.3. LSTM Mapper
-LSTM mapper is very useful in learning long-term dependencies in data which with other recurrent neural networks (RNNs) suffer from gradient vanishing or exploding problem <a href="#ref8">[9]</a>. Thus, LSTM can learn temporal dependencies more accurately. The LSTM mapper used consists of two 2D convolutional, one flatten, three dense and two LSTM layers. The Fig. 13 shows the block diagram for the LSTM mapper and decoder and changes to the input data shape as it flows. A time series EIT measurement of length four is passed into this mapper as well and it is trained to predict the latent representation from the voltages. The results of the LSTM mapper are discussed in the next section.
+LSTM mapper is very useful in learning long-term dependencies in data which with other recurrent neural networks (RNNs) suffer from gradient vanishing or exploding problem <a href="#ref8">[9]</a>. Thus, LSTM can learn temporal dependencies more accurately. The LSTM mapper used consists of two 2D convolutional, one flatten, three dense and two LSTM layers. The Fig. 13 shows the block diagram for the LSTM mapper and decoder and changes to the input data shape as it flows. A time series EIT measurement of length four is passed into this mapper as well and it is trained to predict the latent representation from the voltages. The results of the LSTM mapper are discussed in the next section. A detailed view of the architecture of the LSTM or its training could be viewed in [LSTM Mapper Simulation](Notebooks/LSTM_Mapper_Simulation.ipynb) or [LSTM Mapper Exp](Notebooks/LSTM_Mapper_Exp.ipynb) notebooks.
+
 Mesh plots for true and predicted permittivity distribution using simulated data are shown in the figure below.
 
 <p align="center">
@@ -253,7 +257,7 @@ The performance of LSTM with experimental data is as follows.
 It can be observed that in all three mappers, the reconstruction of simulated data was much better than the experimental data. This is due to the inherent noise and fluctuations in the experimental data which makes it difficult to make true predictions. The analytical performance of the mappers is discussed next. 
 
 
-## **6. Results**
+## **6. Results**[^2]
 
 The Fig. 18 shows the box plots which represent the permittivity deviation in mesh elements for three of the mappers when simulated data was used. The simple mapper performed the worst with mean and standard deviations of 0.706 and 2.492 respectively. The performance of the sequential and LSTM mappers is comparable. LSTM performs better in terms of giving precise predictions as its permittivity error standard deviation is 1.797 and for sequential mapper this standard deviation is 2.433. However, the mean deviation for LSTM is -0.775 and 0.42 for sequential mapper. The predictions of LSTM are generally lower than the true value while they are higher for the sequential mapper. Overall, the sequential mapper gives relatively more accurate predictions on occasions but there is high variability in its predictions. The performance of LSTM is comparatively more consistent.
 
@@ -305,6 +309,9 @@ In this case as well the simple mapper's performance is the worst among the thre
 After comparing the performance of the three mappers with three different types of datasets, the LSTM mapper has stood out to be the best among the three followed by the sequential mapper. LSTM mapper has displayed consistent and relatively accurate predictions.
 
 
+
+
+[^2]: These results could also be viewed in each of the given mapper training notebook
 
 
 ## **7. Citations**
