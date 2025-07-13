@@ -237,11 +237,12 @@ LSTM mapper is very useful in learning long-term dependencies in data which with
 Mesh plots for true and predicted permittivity distribution using simulated data are shown in the figure below.
 
 <p align="center">
-  <img src="LSTM_Mapper_Sim.gif" alt="LSTM_Mapper_Sim">
+  <img src="imgs/LSTM_Mapper_Sim.gif" alt="LSTM_Mapper_Sim">
 </p>
 <p align="center" style="font-size: smaller;">
   <em>Fig. 16: LSTM mapper true vs predicted mesh plots with simulated data</em>
 </p>
+
 
 The performance of LSTM with experimental data is as follows.
 
