@@ -59,7 +59,7 @@ We then introduce an anomaly to each of the meshes. Depending on the size of the
 
 The permittivity associated with each of these mesh elements is stored in a single array. Hence, by simulating an anomaly we get a known permittivity distribution which is then used to find out voltages. 
 
-A system with thirty-two electrodes is simulated with an opposite injection pattern with a skip of sixteen electrodes. The injecting electrodes are the electrodes to which a sinusoidal electric current is injected and afterwards, the voltages at each of the remaining adjacent pairs are recorded. This pattern is repeated until all the possible injecting electrode patterns are simulated. In simulating EIT data we know the permittivity distribution and we use it to obtain the voltages at electrodes. Using permittivity to obtain these voltages is also known as the EIT forward problem. For detailed information about how EIT data was simulated and the associated results refer to [EIT Data Simulation](Notebooks/EIT_Data_Simulation.ipynb) notebook.
+A system with thirty-two electrodes is simulated with an opposite injection pattern with a skip of sixteen electrodes. The injecting electrodes are the electrodes to which a sinusoidal electric current is injected and afterwards, the voltages at each of the remaining adjacent pairs are recorded. This pattern is repeated until all the possible injecting electrode patterns are simulated. In simulating EIT data we know the permittivity distribution and we use it to obtain the voltages at electrodes. Using permittivity to obtain these voltages is also known as the EIT forward problem. 
 
 
 ## **3. Experimental Setup**
@@ -154,7 +154,7 @@ Additionally, the figure below shows the box plot which represents the deviation
 
 The trained VAE would help us in training our neural networks where we would use the latent representation to train the network and then the predicted latent representations would be passed through the decoder to reconstruct permittivity distribution. In short by using VAE we "generate a low dimensional manifold of approximate solutions, which allows conversion of the ill-posed EIT problem to a well-posed one" <a href="#ref7">[8]</a>. This is discussed in the next section.
 
-For further information about the architecture and training of VAE refer to [VAE Training](Notebooks/VAE_Training.ipynb) notebook.
+
 
 
 ## **5. Mapper Models**
@@ -173,7 +173,7 @@ A simple convolutional neural network is used having two 2D convolutional, one f
 </p>
 
 
-The neural network learns to map the boundary voltages at a single time instant to the latent space created by the encoder of the VAE using permittivity distribution. To have a deeper look at the mapper architecture or the training process please refer to either [Simple Mapper Simulation](Notebooks/Simple_Mapper_Simulation.ipynb) or [Simple Mapper Exp](Notebooks/Simple_Mapper_Exp.ipynb) notebooks.
+The neural network learns to map the boundary voltages at a single time instant to the latent space created by the encoder of the VAE using permittivity distribution. 
 
 The following figure represents the reconstruction of permittivity distribution using simulated data.
 
@@ -209,7 +209,7 @@ The sequential mapper is similar to the simple mapper, however, instead of passi
 
 
 
-We investigate in the [results](#6-results) section how does this change affect the performance of the mapper. The mapper consists of two 2D convolutional, two flatten and five dense layers. To have a closer look at the mapper architecture or the training process please refer to either [Seq Mapper Simulation](Notebooks/Seq_Mapper_Simulation.ipynb) or [Seq Mapper Exp](Notebooks/Seq_Mapper_Exp.ipynb) notebooks.
+We investigate in the [results](#6-results) section how does this change affect the performance of the mapper. The mapper consists of two 2D convolutional, two flatten and five dense layers.
 
 The Fig. 14 shows the performance of this mapper when simulated data is used.
 
@@ -232,7 +232,7 @@ The performance of the mapper with experimental data is displayed below.
 
 
 ### 5.3. LSTM Mapper
-LSTM mapper is very useful in learning long-term dependencies in data which with other recurrent neural networks (RNNs) suffer from gradient vanishing or exploding problem <a href="#ref8">[9]</a>. Thus, LSTM can learn temporal dependencies more accurately. The LSTM mapper used consists of two 2D convolutional, one flatten, three dense and two LSTM layers. The Fig. 13 shows the block diagram for the LSTM mapper and decoder and changes to the input data shape as it flows. A time series EIT measurement of length four is passed into this mapper as well and it is trained to predict the latent representation from the voltages. The results of the LSTM mapper are discussed in the next section. A detailed view of the architecture of the LSTM or its training could be viewed in [LSTM Mapper Simulation](Notebooks/LSTM_Mapper_Simulation.ipynb) or [LSTM Mapper Exp](Notebooks/LSTM_Mapper_Exp.ipynb) notebooks.
+LSTM mapper is very useful in learning long-term dependencies in data which with other recurrent neural networks (RNNs) suffer from gradient vanishing or exploding problem <a href="#ref8">[9]</a>. Thus, LSTM can learn temporal dependencies more accurately. The LSTM mapper used consists of two 2D convolutional, one flatten, three dense and two LSTM layers. The Fig. 13 shows the block diagram for the LSTM mapper and decoder and changes to the input data shape as it flows. A time series EIT measurement of length four is passed into this mapper as well and it is trained to predict the latent representation from the voltages. The results of the LSTM mapper are discussed in the next section. 
 
 Mesh plots for true and predicted permittivity distribution using simulated data are shown in the figure below.
 
