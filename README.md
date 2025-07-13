@@ -104,7 +104,7 @@ So, we get both permittivity and voltage information, which is then used for tra
 
 ### Augmented Dataset
 
-In addition to the simulated and experimental datasets, a third dataset[^1] was also used to check the output of mappers. This is also called as 2nd simulation dataset in this report. Here, the anomaly was modelled using the same method as in the experimental setup. However, only a small dataset of saline level changes was collected. Later on, data augmentation was performed to get a larger dataset. Before data augmentation a clean subset of 8 time periods of the signal was selected from the collected data to which a median filter was applied and then we obtained the Fourier series representation as mentioned above. After scaling and inverting the filtered data, they were divided into 8 different chunks. These chunks were then shuffled randomly and added to the original dataset until the required number of samples were obtained.
+In addition to the simulated and experimental datasets, a third dataset was also used to check the output of mappers. This is also called as 2nd simulation dataset in this report. Here, the anomaly was modelled using the same method as in the experimental setup. However, only a small dataset of saline level changes was collected. Later on, data augmentation was performed to get a larger dataset. Before data augmentation a clean subset of 8 time periods of the signal was selected from the collected data to which a median filter was applied and then we obtained the Fourier series representation as mentioned above. After scaling and inverting the filtered data, they were divided into 8 different chunks. These chunks were then shuffled randomly and added to the original dataset until the required number of samples were obtained.
 
 The plot below shows the change in the radius of the anomaly.
 
@@ -119,7 +119,7 @@ The plot below shows the change in the radius of the anomaly.
 
 Noise is also added to the mesh elements so that the signal-to-noise ratio (SNR) is 30. Note that voltages were obtained in the same way as in the simulation case i.e. by solving the forward problem. 
 
-[^1]: This dataset was provided by the supervisor.
+
 
 ## **4. Variational Autoencoder**
 
@@ -257,7 +257,7 @@ The performance of LSTM with experimental data is as follows.
 It can be observed that in all three mappers, the reconstruction of simulated data was much better than the experimental data. This is due to the inherent noise and fluctuations in the experimental data which makes it difficult to make true predictions. The analytical performance of the mappers is discussed next. 
 
 
-## **6. Results**[^2]
+## **6. Results**
 
 The Fig. 18 shows the box plots which represent the permittivity deviation in mesh elements for three of the mappers when simulated data was used. The simple mapper performed the worst with mean and standard deviations of 0.706 and 2.492 respectively. The performance of the sequential and LSTM mappers is comparable. LSTM performs better in terms of giving precise predictions as its permittivity error standard deviation is 1.797 and for sequential mapper this standard deviation is 2.433. However, the mean deviation for LSTM is -0.775 and 0.42 for sequential mapper. The predictions of LSTM are generally lower than the true value while they are higher for the sequential mapper. Overall, the sequential mapper gives relatively more accurate predictions on occasions but there is high variability in its predictions. The performance of LSTM is comparatively more consistent.
 
@@ -311,7 +311,6 @@ After comparing the performance of the three mappers with three different types 
 
 
 
-[^2]: These results could also be viewed in each of the given mapper training notebook
 
 
 ## **7. Citations**
