@@ -51,7 +51,7 @@ This is done so that it becomes easier to numerically solve the forward problem.
 We then introduce an anomaly to each of the meshes. Depending on the size of the anomaly the permittivity for the proportional number of mesh elements in a mesh is set to be 10 and the permittivity for the rest of the elements is set at 1. The figure below shows the anomaly plot and how its size varies in the mesh.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/4de10343-0b8b-4951-9308-f39af70d220d" alt="Mesh_with_anomaly_animation">
+  <img src="imgs/Mesh_with_anomaly_animation.gif" alt="Mesh_with_anomaly_animation">
 </p>
 <p align="center" style="font-size: smaller;">
   <em>Fig. 2: Variation in anomaly size over a single time period</em>
@@ -70,8 +70,8 @@ An array of thirty-two electrodes was connected and circled the tank to record t
 
 <table align="center">
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/cf44ba70-8008-47d7-959f-8fa03ddc7be5" alt="exp_setup1 (4)"></td>
-    <td><img src="https://github.com/user-attachments/assets/6c33351d-2226-4a0e-948e-86a5fc6b55ac" alt="exp_setup2 (2)"></td></td>
+    <td><img src="imgs/exp_setup1 (4).gif" alt="exp_setup1 (4)"></td>
+    <td><img src="imgs/exp_setup2 (2).gif" alt="exp_setup2 (2)"></td></td>
   </tr>
   <tr>
     <td colspan="2" align="center"><em>Fig. 3: Experimental setup side and top views</em></td>
@@ -83,7 +83,7 @@ An array of thirty-two electrodes was connected and circled the tank to record t
 With the change in the size of the balloon, the cross-sectional conductivity distribution changes and as a result, the boundary voltages were also changed. So, we recorded both the change in the saline level and voltages.  The raw data from the ultrasonic sensor was noisy and had fluctuations. So a median filter was applied to remove much of the noise and then to further improve this data Fast Fourier Transform (FFT) was applied to the data from the median filter. We used FFT to get the signal frequency components and took only a limited number of those signal frequency components (terms) from the spectrum to create a Fourier series representation of the signal. Then this Fourier series representation was reconstructed (to get a time-domain signal) using inverse FFT. This helped in further removing unwanted frequencies and smoothening of the signal. A comparison between these three signals is shown in the figure below.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/75e414cc-024d-49cb-a8d0-99f6246956c9" alt="Filtered_Data">
+  <img src="imgs/Filtered_Data.png" alt="Filtered_Data">
 </p>
 <p align="center" style="font-size: smaller;">
   <em>Fig. 4: Raw and filtered data plots</em>
@@ -92,7 +92,7 @@ With the change in the size of the balloon, the cross-sectional conductivity dis
 Since a balloon is an anomaly which is varied in size and which has to be detected later on using Machine Learning Methods. We need to find out the changes in the size of the balloon. For this we used our FFT data and inverted and scaled it between 0.20 to 0.35. The inversion was done because the ultrasonic sensor was measuring the distance between the top of the tank and the saline level.  As the balloon was inflated its size and resultantly the water level would also go up. So, the distance between the saline surface and the top of the tank would decrease. The figure below shows the balloon radius signal.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/4a398f94-47ca-47e8-b44f-07a008232028" alt="balloon_radius">
+  <img src="imgs/balloon_radius.png" alt="balloon_radius">
 </p>
 <p align="center" style="font-size: smaller;">
   <em>Fig. 5: Balloon radius plot</em>
@@ -109,7 +109,7 @@ In addition to the simulated and experimental datasets, a third dataset was also
 The plot below shows the change in the radius of the anomaly.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/a7ba7743-3d5c-4173-91e0-cb0003d4b547" alt="3rd_data_set_anomaly">
+  <img src="imgs/3rd_data_set_anomaly.png" alt="3rd_data_set_anomaly">
 </p>
 <p align="center" style="font-size: smaller;">
   <em>Fig. 6: Change of anomaly radius for augmented data</em>
@@ -126,7 +126,7 @@ Noise is also added to the mesh elements so that the signal-to-noise ratio (SNR)
 Variational Autoencoder (VAE) is a type of autoencoder consisting of an encoder and a decoder that is used for unsupervised learning, it involves learning a model distribution from the input data such that the learned distribution is just like the distribution of the input data <a href="#ref7">[7]</a>. The encoder part of the VAE helps to learn a Gaussian distribution from the input data by producing the mean and standard deviation of the distribution from which a low-dimensional latent variable is sampled <a href="#ref7">[7]</a>. Thus, by using the encoder we can transform our input data from a higher dimension into a lower dimensional latent space. Afterwards, the decoder learns to transform this low-dimensional latent representation back to the original input data shape <a href="#ref7">[7]</a>. The figure below gives a high-level overview of the architecture of the VAE.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/2ce395b5-7980-49ce-af45-2f438d3ad3f9" alt="VAE_Architecture">
+  <img src="imgs/VAE_Architecture.png" alt="VAE_Architecture">
 </p>
 <p align="center" style="font-size: smaller;">
   <em>Fig. 7: VAE model</em>
@@ -136,7 +136,7 @@ Variational Autoencoder (VAE) is a type of autoencoder consisting of an encoder 
 We used permittivity data to train our VAE. We used the encoder to create a set of latent representations based on the permittivity data and then trained the decoder to learn to decode that latent representation to its original form. The figure below compares the original and reconstructed permittivity distribution using VAE.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/d8685d5a-0b7a-4589-8487-1e9b468eb1c2" alt="VAE (1)">
+  <img src="imgs/VAE (1).gif" alt="VAE (1)">
 </p>
 <p align="center" style="font-size: smaller;">
   <em>Fig. 8: True vs predicted mesh plots using VAE</em>
@@ -145,7 +145,7 @@ We used permittivity data to train our VAE. We used the encoder to create a set 
 Additionally, the figure below shows the box plot which represents the deviations in mesh elements. This helps to analytically evaluate the performance of the VAE. The mean deviation is 0.26 and the standard deviation is 0.439 denoting VAE is performing well.
 
 <p align="center">
-  <img  height=500 src="https://github.com/user-attachments/assets/96e018dc-19fb-46ac-a8d7-97ebec34533c" alt="VAE Boxplot(snr_30) (2)">
+  <img  height=500 src="imgs/VAE Boxplot(snr_30) (2).png" alt="VAE Boxplot(snr_30) (2)">
 </p>
 <p align="center" style="font-size: smaller;">
   <em>Fig. 9: Box plot of VAE for performance</em>
@@ -166,7 +166,7 @@ After training VAE we would use it to train our neural networks (also called map
 A simple convolutional neural network is used having two 2D convolutional, one flatten and three dense layers. This model transforms an input of high dimensions into an output of eight features, which corresponds to the latent space.  This is exactly what is required as our decoder from VAE expects 8 dimensions of input. The Fig. 10 shows the data flow from the mapper to the VAE decoder.  
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/9b1bb36a-e1da-4ff8-8429-a726a42b0afd" alt="Simple_Mapper_Architecture">
+  <img src="imgs/Simple_Mapper_Architecture.png" alt="Simple_Mapper_Architecture">
 </p>
 <p align="center" style="font-size: smaller;">
   <em>Fig. 10: Simple mapper with decoder model</em>
@@ -179,7 +179,7 @@ The following figure represents the reconstruction of permittivity distribution 
 
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/17750a43-7709-4ea2-8c28-bd05f2c9abe7" alt="Simple_Mapper">
+  <img src="imgs/Simple_Mapper_Sim.gif" alt="Simple_Mapper_Sim">
 </p>
 <p align="center" style="font-size: smaller;">
   <em>Fig. 11: Simple mapper true vs predicted mesh plots with simulated data</em>
@@ -189,7 +189,7 @@ The following figure represents the reconstruction of permittivity distribution 
 The figure below shows the comparison between the actual and predicted permittivity distributions when experimental data was used. 
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/2047acc4-9aab-4c2a-8bfc-d97954bb1755" alt="Simple_Mapper">
+  <img src="imgs/Simple_Mapper.gif" alt="Simple_Mapper">
 </p>
 <p align="center" style="font-size: smaller;">
   <em>Fig. 12: Simple mapper true vs predicted mesh plots with experimental data</em>
@@ -201,7 +201,7 @@ The figure below shows the comparison between the actual and predicted permittiv
 The sequential mapper is similar to the simple mapper, however, instead of passing only one EIT measurement we feed a time series of EIT measurements of length four into our mapper. Hence the name is sequential. In this case, we heuristically chose a sequence length of four. Using time series of EIT measurements allows the mapper to learn temporal dependencies between the data and make better predictions. The figure below shows the transformation of the input data from this mapper model and the decoder to the required output.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/c007ca57-3318-4329-8e75-bb02b1015db1" alt="Seq_LSTM_Architecture">
+  <img src="imgs/Seq_LSTM_Architecture.png" alt="Seq_LSTM_Architecture">
 </p>
 <p align="center" style="font-size: smaller;">
   <em>Fig. 13: Sequential and LSTM mappers with decoder model</em>
@@ -214,7 +214,7 @@ We investigate in the [results](#6-results) section how does this change affect 
 The Fig. 14 shows the performance of this mapper when simulated data is used.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/6e53500c-69d2-4d8e-80b4-614365c01053" alt="Seq_Mapper">
+  <img src="imgs/Seq_Mapper_Sim.gif" alt="Seq_Mapper">
 </p>
 <p align="center" style="font-size: smaller;">
   <em>Fig. 14: Sequential mapper true vs predicted mesh plots with simulated data</em>
@@ -224,7 +224,7 @@ The Fig. 14 shows the performance of this mapper when simulated data is used.
 The performance of the mapper with experimental data is displayed below.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/6de0e6cb-a5a3-46d4-acea-eb70e91ad3b1" alt="Seq_Mapper">
+  <img src="imgs/Seq_Mapper.gif" alt="Seq_Mapper">
 </p>
 <p align="center" style="font-size: smaller;">
   <em>Fig. 15: Sequential mapper true vs predicted mesh plots with experimental data</em>
@@ -237,7 +237,7 @@ LSTM mapper is very useful in learning long-term dependencies in data which with
 Mesh plots for true and predicted permittivity distribution using simulated data are shown in the figure below.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/a7619fc3-f1b0-406a-aa3d-0deed74009fb" alt="LSTM_Mapper">
+  <img src="LSTM_Mapper_Sim.gif" alt="LSTM_Mapper_Sim">
 </p>
 <p align="center" style="font-size: smaller;">
   <em>Fig. 16: LSTM mapper true vs predicted mesh plots with simulated data</em>
@@ -246,7 +246,7 @@ Mesh plots for true and predicted permittivity distribution using simulated data
 The performance of LSTM with experimental data is as follows.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/ac7932c3-a547-472b-a6a8-a2b8b6fdc845" alt="LSTM_Mapper">
+  <img src="imgs/LSTM_Mapper.gif" alt="LSTM_Mapper">
 </p>
 <p align="center" style="font-size: smaller;">
   <em>Fig. 17: LSTM mapper true vs predicted mesh plots with experimental data</em>
@@ -263,9 +263,9 @@ The Fig. 18 shows the box plots which represent the permittivity deviation in me
 
 <table align="center">
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/a6e309ab-9ae1-42a5-8e83-a4f4fd316b64" alt="Simple_Mapper_Boxplot(snr_30)"></td>
-    <td><img src="https://github.com/user-attachments/assets/285e4e4e-93d1-4aa9-85b8-8c17c347e5cf" alt="Seq_Mapper_Boxplot(snr_30)"></td>
-    <td><img src="https://github.com/user-attachments/assets/fdc51fe3-f38e-442b-80c1-b1949bae7c58" alt="LSTM_Mapper_Boxplot(snr_30)"></td>
+    <td><img src="imgs/Simple_Mapper_Boxplot(snr_30)_Sim.png" alt="Simple_Mapper_Boxplot(snr_30)_Sim"></td>
+    <td><img src="imgs/Seq_Mapper_Boxplot(snr_30)_Sim.png" alt="Seq_Mapper_Boxplot(snr_30)_Sim"></td>
+    <td><img src="imgs/LSTM_Mapper_Boxplot(snr_30)_Sim.png" alt="LSTM_Mapper_Boxplot(snr_30)_Sim"></td>
   </tr>
   <tr>
     <td colspan="3" align="center"><em>Fig. 18: Box plot comparison of all the mappers with simulated data</em></td>
@@ -278,9 +278,9 @@ The performance of the simple mapper becomes worse as the complexity of the data
 
 <table align="center">
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/391ee182-689b-493e-b0bc-511b0b8fdbb4" alt="Simple_Mapper_Boxplot"></td>
-    <td><img src="https://github.com/user-attachments/assets/eb35b584-f1ed-44aa-bb69-5cf7366a3d3c" alt="Seq_Mapper_Boxplot(snr_30)"></td>
-    <td><img src="https://github.com/user-attachments/assets/0341754e-dbca-4d60-8f7a-3802f3423e1e" alt="LSTM_Mapper_Boxplot(snr_30)"></td>
+    <td><img src="imgs/Simple_Mapper_Boxplot.png" alt="Simple_Mapper_Boxplot"></td>
+    <td><img src="imgs/Seq_Mapper_Boxplot(snr_30).png" alt="Seq_Mapper_Boxplot(snr_30)"></td>
+    <td><img src="imgs/LSTM_Mapper_Boxplot(snr_30).png" alt="LSTM_Mapper_Boxplot(snr_30)"></td>
   </tr>
   <tr>
     <td colspan="3" align="center"><em>Fig. 19: Box plot comparison of all the mappers with experimental data</em></td>
@@ -295,9 +295,9 @@ In addition to testing out the mapper performances with these two datasets, a th
 
 <table align="center">
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/3ac06e36-692c-4985-943c-649f4153851d" alt="Simple_Mapper_Boxplot"></td>
-    <td><img src="https://github.com/user-attachments/assets/0ed2a431-5ff5-4fbb-92e0-638152f017f6" alt="Seq_Mapper_Boxplot(snr_30)"></td>
-    <td><img src="https://github.com/user-attachments/assets/2667c53f-b072-4901-8ada-954b3ab02cfb" alt="LSTM_Mapper_Boxplot(snr_30)"></td>
+    <td><img src="imgs/Simple_Mapper_Boxplot_agm.png" alt="Simple_Mapper_Boxplot_agm"></td>
+    <td><img src="imgs/Seq_Mapper_Boxplot(snr_30)_agm.png" alt="Seq_Mapper_Boxplot(snr_30)_agm"></td>
+    <td><img src="imgs/LSTM_Mapper_Boxplot(snr_30)_agm.png" alt="LSTM_Mapper_Boxplot(snr_30)_agm"></td>
   </tr>
   <tr>
     <td colspan="3" align="center"><em>Fig. 20: Box plot comparison of all the mappers with augmented data</em></td>
