@@ -41,7 +41,7 @@ The radius of the anomaly is approximated as a sine wave that ranges from 0.2 to
 The region of interest where the anomaly has to be detected is modelled as a 2D mesh with triangular mesh elements as shown in the Fig. 1.
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/cc086c60-feb8-4f5b-bb47-a4b4e0918bbc" alt="Empty_mesh">
+  <img src="imgs/Empty_mesh.png" alt="Empty_mesh">
 </p>
 <p align="center" style="font-size: smaller;">
   <em>Fig. 1: Modelled mesh for permittivity distribution</em>
