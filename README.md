@@ -20,7 +20,7 @@ and fine-tuned by varying datasets and hyperparameters to achieve optimal perfor
      <img src="imgs/eit_comparison_grid_imgs6.png" alt="Real vs Fake EIT mesh plots for anomaly radius = 0.2" width="50%" />
    </p>
    <p align="center" style="font-size: smaller;">
-     <em>Figure 12: Real vs Fake EIT mesh plots for anomaly radius = 0.2.</em>
+     <em>Figure 1: Real vs Fake EIT mesh plots for anomaly radius = 0.2.</em>
    </p>
 
 
@@ -28,5 +28,12 @@ However, the model’s performance declined significantly when a substantial por
 
 The CcGAN trained on the real dataset learned a smooth, population-level mapping from aortic pressure to EIT voltage patterns, accurately reflecting the pressure conditioning without collapsing into discrete modes. The G effectively captured the primary influence of pressure changes on the voltage patterns, but it did not fully reproduce the range of variability observed in the real
 measurements.
+
+<p align="center">
+  <img src="imgs/Gen_data_PCA.png" alt="PCA of generated EIT data" width="50%" />
+</p>
+<p align="center" style="font-size: smaller;">
+  <em>Figure 2: PCA of generated EIT data.</em>
+</p>
 
 Thus, in its current form, the use of this CcGAN model cannot be reliably extended to generate experimental EIT data. Modifications, such as incorporating physics-informed learning frameworks into the CcGAN architecture, could be explored as part of future work.
