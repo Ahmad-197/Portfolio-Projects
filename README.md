@@ -30,7 +30,7 @@ The CcGAN trained on the real dataset learned a smooth, population-level mapping
 measurements.
 
 <p align="center">
-  <img src="imgs/Gen_data_PCA.png" alt="PCA of generated EIT data" width="50%" />
+  <img src="imgs/Gen_data_PCA (1).png" alt="PCA of generated EIT data" width="50%" />
 </p>
 <p align="center" style="font-size: smaller;">
   <em>Figure 2: PCA of generated EIT data.</em>
