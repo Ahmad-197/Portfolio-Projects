@@ -14,8 +14,17 @@ generative model produces. This leads to the use of continuous conditional GANs 
 on critical parameters such as aortic pressure, reliance on expensive and ethically complex animal experiments could be significantly reduced. We aim to generate EIT voltages, particularly at lower aortic pressures, as the real dataset we obtained contained considerably fewer data points in this range.
 
 Before training the CcGAN model with experimental EIT data, we first trained it using simulated EIT voltage data conditioned on the angle of the anomaly. The model was rigorously trained
-and fine-tuned by varying datasets and hyperparameters to achieve optimal performance. Using the simulated data, we were able to obtain a G capable of producing reliable results. However, the
-model’s performance declined significantly when a substantial portion of the data was removed during training, and it was asked to generate the missing data.
+and fine-tuned by varying datasets and hyperparameters to achieve optimal performance. Using the simulated data, we were able to obtain a G capable of producing reliable results. 
+
+   <p align="center">
+     <img src="imgs/eit_comparison_grid_imgs6.png" alt="Real vs Fake EIT mesh plots for anomaly radius = 0.2" width="50%" />
+   </p>
+   <p align="center" style="font-size: smaller;">
+     <em>Figure 12: Real vs Fake EIT mesh plots for anomaly radius = 0.2.</em>
+   </p>
+
+
+However, the model’s performance declined significantly when a substantial portion of the data was removed during training, and it was asked to generate the missing data.
 
 The CcGAN trained on the real dataset learned a smooth, population-level mapping from aortic pressure to EIT voltage patterns, accurately reflecting the pressure conditioning without collapsing into discrete modes. The G effectively captured the primary influence of pressure changes on the voltage patterns, but it did not fully reproduce the range of variability observed in the real
 measurements.
